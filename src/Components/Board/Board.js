@@ -1,15 +1,14 @@
 import React, { useState, useRef } from 'react'
-import './TicTacToe.css'
+import './Board.css'
 import circle_icon from '../Assets/circle.png'
 import cross_icon from '../Assets/cross.png'
 
-let data = ["", "", "", "", "", "", "", "", ""]
-let clicks = ["", "", "", "", "", "", "", "", ""]
 
-const TicTacToe = () => {
+const Board = () => {
 
     let [count, setCount] = useState(0);
     let [lock, setLock] = useState(false);
+    const [data, setData] = useState(["", "", "", "", "", "", "", "", ""])
     let titleRef = useRef(null);
     const [title, setTitle] = useState('Tic Tac Toe');
 
@@ -19,14 +18,15 @@ const TicTacToe = () => {
             return 0;
         }
         if (count % 2 === 0) {
-            // e.target.innerHTML = `<img src = '${cross_icon}'>`;/
-            // clicks[num] = ''
-            data[num] = 'x';
+            let test = data
+            test[num] = 'x';
+            setData(test)
             setCount(++count);
         }
         else {
-            // e.target.innerHTML = `<img src = '${circle_icon}'>`;
-            data[num] = 'o';
+            let test = data
+            test[num] = 'o';
+            setData(test)
             setCount(++count);
         }
         check();
@@ -55,18 +55,16 @@ const TicTacToe = () => {
         }
         else if (data[2] === data[4] && data[4] === data[6] && data[6] !== "") {
             wins(data[6]);
-        }else if(data.every(d=> d !== "")){
+        } else if (data.every(d => d !== "")) {
             setTitle("It's Tie")
         }
     }
     const wins = (winner) => {
         setLock(true);
         if (winner === 'x') {
-            // titleRef.current.innerHTML = `Team A Won`
             setTitle('Team A Won');
         }
         else if (winner === 'o') {
-            // titleRef.current.innerHTML = `Team B Won`
             setTitle('Team B Won');
         }
     }
@@ -97,4 +95,4 @@ const TicTacToe = () => {
     )
 }
 
-export default TicTacToe
+export default Board
